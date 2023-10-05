@@ -34,7 +34,6 @@ int main()
   int num_devices = omp_get_num_devices();
   printf("Number of available target devices %d\n", num_devices);
   int counter = 0;
-  // Key note: 
   #pragma omp target parallel
   {
       if(omp_is_initial_device())
