@@ -46,7 +46,7 @@ int main()
       else{
         int num_teams= omp_get_num_teams(); 
         int num_threads_per_team = omp_get_num_threads();
-        ++ counter;
+        counter = counter + 1;
         printf("Running on GPU with %d teams and %d threads per team\n", 
           num_teams, 
           num_threads_per_team
