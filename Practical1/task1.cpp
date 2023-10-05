@@ -33,12 +33,11 @@ int main()
 {
   int num_devices = omp_get_num_devices();
   printf("Number of available target devices %d\n", num_devices);
-
+  int counter = 0;
   #pragma omp target teams
   {
-    int counter = 0;
+    
     for (int i = 0; i < 10; ++i) {
-      ++ counter;
       // Creating 10 threads in 14
       if(omp_is_initial_device())
       {
@@ -47,14 +46,15 @@ int main()
       else{
         int num_teams= omp_get_num_teams(); 
         int num_threads_per_team = omp_get_num_threads();
+        ++ counter;
         printf("Running on GPU with %d teams and %d threads per team\n", 
           num_teams, 
           num_threads_per_team
         );
       }
     }
-    printf("This statement printed %d times.\n", 
-     counter
-    );
   }
+  printf("This statement printed %d times.\n", 
+    counter
+  );
 }
