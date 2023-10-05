@@ -36,6 +36,8 @@ int main()
 
   #pragma omp target teams
   {
+    for (int i = 0; i < 10; ++i) {
+      // Creating 10 threads in 14 teams
       if(omp_is_initial_device())
       {
         printf("Running on CPU\n");    
@@ -48,5 +50,6 @@ int main()
           num_threads_per_team
         );
       }
+    }
   }
 }
