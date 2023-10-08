@@ -33,7 +33,7 @@ int main()
 {
   int num_devices = omp_get_num_devices();
   printf("Number of available target devices %d\n", num_devices);
-  #pragma omp target parallel num_threads(32)
+  #pragma omp target parallel num_threads(64) // Answer for part c.
   {
       if(omp_is_initial_device())
       {
