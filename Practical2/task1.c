@@ -31,14 +31,14 @@ int main(int argc, char** argv) {
     int maxNum = 64;
 
     if (rank == 0) {
-        char message[maxNum] = "Hello World!\n\0";
+        char* message = "Hello World!\n";
         // Rank no.0
         count = strlen(message);
         MPI_Send(&message, count, MPI_UNSIGNED_CHAR, 1, 0, MPI_COMM_WORLD);
         printf("Rank 0 sent a message to rank 1");
     } else if (rank == 1) {
         // Rank no.1
-        char message[];
+        char* message;
         // Defines some blank meta data to be used in message probing
         MPI_Status status;
         // Probe an incoming message for meta data about the incoming message (inc message size)
