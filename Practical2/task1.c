@@ -48,7 +48,7 @@ int main(int argc, char** argv) {
         MPI_Get_count(&status, MPI_INT, &count);
 
         // Create a buffer to help receive the right amount of data from the incoming above based on the above.
-        int msgLen = (int)malloc(sizeof(int) * count);
+        int* msgLen = (int*)malloc(sizeof(int) * count);
 
         MPI_Recv(&message, msgLen, MPI_UNSIGNED_CHAR, 0, 0, MPI_COMM_WORLD, &status);
         printf("Rank 1 received (from rank 0): %s",message);
