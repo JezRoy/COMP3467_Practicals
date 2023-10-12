@@ -28,9 +28,10 @@ int main(int argc, char** argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &num_ranks);
     
     int count;
+    int maxNum = 64
 
     if (rank == 0) {
-        char message[] = "Hello World!\n";
+        char message[maxNum] = "Hello World!\n\0";
         // Rank no.0
         count = strlen(message);
         MPI_Send(&message, count, MPI_UNSIGNED_CHAR, 1, 0, MPI_COMM_WORLD);
