@@ -26,7 +26,7 @@ int main(int argc, char** argv) {
     int num_ranks;
     MPI_Comm_size(MPI_COMM_WORLD, &num_ranks);
     
-    char message[];
+    char message[14];
 
     if (rank == 0) {
         char message[] = "Hello World!\n";
