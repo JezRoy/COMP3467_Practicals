@@ -28,7 +28,7 @@ int main(int argc, char** argv) {
     MPI_Comm_size(MPI_COMM_WORLD, &num_ranks);
     
     int count;
-    int maxNum = 64
+    int maxNum = 64;
 
     if (rank == 0) {
         char message[maxNum] = "Hello World!\n\0";
