@@ -35,7 +35,6 @@ int main(int argc, char** argv) {
     } else if (rank == 1) {
         // Rank no.1
         MPI_Recv(&message, 14, MPI_UNSIGNED_CHAR, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        printf()
         printf("The message is: %s",message);
     }
 
