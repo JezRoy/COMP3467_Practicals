@@ -8,4 +8,4 @@
 
 module load intel-oneapi/2022.1.2/mpi
 mpicc task1.c -o hello
-mpirun -np 2 ./hello
+mpirun -n 2 ./hello

@@ -35,10 +35,10 @@ int main(int argc, char** argv) {
         // Rank no.0
         count = strlen(message);
         MPI_Send(&message, count, MPI_CHAR, 1, 0, MPI_COMM_WORLD);
-        printf("Rank 0 sent a message to rank 1");
+        printf("Rank 0 sent a message to rank 1.\n");
     } else if (rank == 1) {
         // Rank no.1
-        char* message;
+        char* message = (char*)malloc(sizeof(char) * maxNum);
         // Defines some blank meta data to be used in message probing
         MPI_Status status;
         // Probe an incoming message for meta data about the incoming message (inc message size)
@@ -51,8 +51,8 @@ int main(int argc, char** argv) {
     
 
         MPI_Recv(&message, count, MPI_CHAR, 0, 0, MPI_COMM_WORLD, &status);
-        printf("Rank 1 received (from rank 0): %s",message);
-        printf("Message length was: %d", count);
+        printf("Rank 1 received (from rank 0): %s\n",message);
+        printf("Message length was: %d\n", count);
     }
 
     MPI_Finalize();
