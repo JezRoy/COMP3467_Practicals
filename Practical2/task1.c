@@ -26,8 +26,17 @@ int main(int argc, char** argv) {
     int num_ranks;
     MPI_Comm_size(MPI_COMM_WORLD, &num_ranks);
     
-    char message[] = "Hello World!\n";
-    printf("The message is:\n%s",message);
+    char message[];
+
+    if (rank == 0) {
+        char message[] = "Hello World!\n";
+        // Rank no.0
+        MPI_Send(&message, 14, MPI_UNSIGNED_CHAR, 1, 0, MPI_COMM_WORLD);
+    } else if (rank == 1) {
+        // Rank no.1
+        MPI_Recv(&message, 14, MPI_UNSIGNED_CHAR, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+        printf("The message is:\n%s",message);
+    }
 
     MPI_Finalize();
 }
