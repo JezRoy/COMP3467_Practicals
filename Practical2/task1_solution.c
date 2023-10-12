@@ -32,6 +32,8 @@ int main(int argc, char** argv) {
     int num_ranks;
     MPI_Comm_size(MPI_COMM_WORLD, &num_ranks);
     
+    // Work on a more robust way for this code to work
+
     if(rank == 0)
     {
         char message[] = "Hello World!\n";

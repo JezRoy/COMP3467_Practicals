@@ -14,6 +14,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include <mpi.h>
 
 int main(int argc, char** argv) {
@@ -26,16 +27,31 @@ int main(int argc, char** argv) {
     int num_ranks;
     MPI_Comm_size(MPI_COMM_WORLD, &num_ranks);
     
-    char message[14];
+    int count;
 
     if (rank == 0) {
         char message[] = "Hello World!\n";
         // Rank no.0
-        MPI_Send(&message, 14, MPI_UNSIGNED_CHAR, 1, 0, MPI_COMM_WORLD);
+        count = strlen(message);
+        MPI_Send(&message, count, MPI_UNSIGNED_CHAR, 1, 0, MPI_COMM_WORLD);
+        printf("Rank 0 sent a message to rank 1")
     } else if (rank == 1) {
         // Rank no.1
-        MPI_Recv(&message, 14, MPI_UNSIGNED_CHAR, 0, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-        printf("Recieved from rank 0 to rank 1: %s",message);
+        char message[];
+        // Defines some blank meta data to be used in message probing
+        MPI_Status status;
+        // Probe an incoming message for meta data about the incoming message (inc message size)
+        MPI_Probe(0, 0, MPI_COMM_WORLD, &status);
+        
+        // Get the size of the incoming message from the probe
+        MPI_Get_count(&status, MPI_INT, &msgLen);
+
+        // Create a buffer to help receive the right amount of data from the incoming above based on the above.
+        int msgLen = (int)malloc(sizeof(int) * count);
+
+        MPI_Recv(&message, msgLen, MPI_UNSIGNED_CHAR, 0, 0, MPI_COMM_WORLD, &status);
+        printf("Rank 1 received (from rank 0): %s",message);
+        printf("Message length was: %d", msgLen);
     }
 
     MPI_Finalize();
