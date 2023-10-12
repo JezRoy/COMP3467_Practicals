@@ -7,5 +7,5 @@
 #SBATCH -t 0:0:30       # time limit for job (format: days-hours:minutes:seconds) 
 
 module load intel-oneapi/2022.1.2/mpi
-mpicc task1_solution.c -o hello
+mpicc task1.c -o hello
 mpirun -np 2 ./hello
